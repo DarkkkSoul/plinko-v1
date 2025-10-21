@@ -31,3 +31,16 @@ function drawObstacles() {
         ctx.closePath();
     })
 }
+
+// draw on canvas
+function draw() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    drawObstacles();
+}
+
+function main() {
+    draw();
+    requestAnimationFrame(update);
+}
+
+main();
