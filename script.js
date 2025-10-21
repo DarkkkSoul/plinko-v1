@@ -1,11 +1,17 @@
 // Constants
-const obstacles = [];
-const rows = 9;
 const WIDTH = 500;
 const HEIGHT = 500;
+const DECIMAL_MULTIPLIER = 1000;
+
+const rows = 9;
 const obstacleSpacing = 38;
 const obstacleRadius = 4;
-const DECIMAL_MULTIPLIER = 1000;
+
+const SINK_NUM = 9;
+const sinkWidth = 38;
+
+const obstacles = [];
+const sinks = [];
 
 // get canvas and create instance
 const canvas = document.getElementById('canvas');
@@ -32,6 +38,15 @@ for (let row = 2; row <= rows; row++) {
     }
 }
 
+//  Creating sinks
+for (let i = 0; i < SINK_NUM; i++) {
+    const x = WIDTH / 2 + (i - SINK_NUM / 2) * sinkWidth + obstacleRadius;
+    const y = HEIGHT - 99;
+    const width = sinkWidth;
+    const height = width;
+    sinks.push({ x, y, width, height });
+}
+
 // draw obstacles
 function drawObstacles() {
     ctx.fillStyle = 'black';
@@ -43,10 +58,20 @@ function drawObstacles() {
     })
 }
 
+// draw sinks
+function drawSinks() {
+    ctx.fillStyle = "red";
+    for (let i = 0; i < sinks.length; i++) {
+        const sink = sinks[i];
+        ctx.fillRect(sink.x, sink.y - sink.height / 2, sink.width - obstacleRadius * 2, sink.height);
+    }
+}
+
 // draw on canvas
 function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     drawObstacles();
+    drawSinks();
 }
 
 function main() {
